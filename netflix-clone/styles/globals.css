@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body{
+    @apply bg-zinc-900 h-full overflow-x-hidden;
+}
+
+/* #__next genellikle Next.js projelerinde kullanılan bir kimliktir 
+ve genellikle uygulamanın temel konteynerini temsil eder. */
+/* h-full stil tanımı, elemanın yüksekliğini tam ekran yüksekliğine
+  genişletmek için sıkça kullanılır. */
+#__next{
+    @apply h-full;
+}
+
+html{
+    @apply h-full;
+}
