@@ -10,6 +10,7 @@
     "prepare": "npx tailwindcss-cli@latest build -o ./styles/tailwind.css"
   },
   "dependencies": {
+    "@prisma/client": "^5.10.2",
     "babel": "^6.23.0",
     "next": "^14.1.0",
     "react": "^18",
@@ -23,6 +24,7 @@
     "eslint": "^8",
     "eslint-config-next": "14.1.0",
     "postcss": "^8.4.35",
+    "prisma": "^5.10.2",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }
