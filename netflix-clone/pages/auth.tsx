@@ -21,6 +21,7 @@ const Auth = () => {
                             <Input label="Email" onChange={(ev : any) => setEmail(ev.target.value)} id="email" type="email" value={email} />        
                             <Input label="Password" onChange={(ev : any) => setPassword(ev.target.value)} id="password" type="password" value={password} />        
                         </div>
+                        <button className="bg-red-600 py-3 mt-10 text-white w-full rounded-md hover:bg-red-700 transition "> Login</button>
                     </div>
                 </div>
              </div>
