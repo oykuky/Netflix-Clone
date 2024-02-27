@@ -1,6 +1,7 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import prismadb from "@/lib/prismadb";
+import compare from 'bcrypt';
 
 
 export default NextAuth ({
@@ -24,10 +25,37 @@ export default NextAuth ({
               }
               const user = await prismadb.user.findUnique({
                 where:{
-                  email: credentials.email
+                  email: credentials.email  // Veritabanında kullanıcının e-posta adresini arar.
                 }
               });
+
+              if(!user || !user.hashedPassword){
+                throw new Error("Email does not exist");
+              }
+
+              const isCorrectPassword = await compare(
+                credentials.password,
+                user.hashedPassword
+              );
+
+              if(!isCorrectPassword) {
+                throw new Error("Incorrect password");
+              }
+
+              return user;
             }  
         })
-    ]
-})
+    ],
+    pages: {
+      signIn: '/auth',
+    },
+    debug: process.env.NODE_ENV === 'development',
+    session:{
+      strategy : 'jwt', 
+    },
+    jwt:{
+      secret: process.env.NEXTAUTH_JWT_SECRET,
+    },
+    secret: process.env.NEXTAUTH_SECRET,
+
+});
