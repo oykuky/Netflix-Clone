@@ -1,8 +1,13 @@
 import Input from "@/components/Input";
 import { useCallback, useState } from "react";
-import axios from 'axios'
+import axios from 'axios';
+import { signIn } from 'next-auth/react'
+import { useRouter } from "next/router";
+import { FcGoogle } from 'react-icons/fc';
+import { FaGithub } from 'react-icons/fa';
 
 const Auth = () => {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
@@ -13,6 +18,25 @@ const Auth = () => {
     );
   }, []);
 
+  
+  const login = useCallback (async () => {
+    try{
+      await signIn('credentials',{
+        email,
+        password,
+        redirect:false,
+        callbackUrl: '/'
+      });
+      router.push('/') // Kullanıcıyı ana sayfaya yönlendir
+    } catch(error){
+      console.log(error);
+    }
+  },[email,password,router]);
+
+  //kaydolma işlemini gerçekleştirir
+  //kaydolma işlemi sonrası login() ile giriş işlemi de yapılır
+  //axios.post fonksiyonu, sunucu tarafındaki "/api/register" 
+  //endpoint'ine bir POST isteği gönderir.
   const register = useCallback( async () => {
     try{
       await axios.post('/api/register',{
@@ -20,11 +44,11 @@ const Auth = () => {
         name,
         password
       });
-    }catch(error){
+      login();
+    } catch(error){
       console.log(error)
     }
-    
-  },[])
+  },[email,name,password,login]);
 
   return (
     <div className="relative h-full w-full bg-[url('/images/hero.jpg')] bg-no-repeat bg-fixed bg-center bg-cover">
@@ -62,10 +86,18 @@ const Auth = () => {
                 value={password}
               />
             </div>
-            <button className="bg-red-600 py-3 mt-10 text-white w-full rounded-md hover:bg-red-700 transition ">
+            <button onClick={variant == 'login' ? login : register } className="bg-red-600 py-3 mt-10 text-white w-full rounded-md hover:bg-red-700 transition ">
               {" "}
               {variant === "login" ? "Login" : "Sign up"}
             </button>
+            <div className="flex flex-row items-center gap-4 mt-8 justify-center">
+              <div onClick={() => signIn('google', { callbackUrl: '/' })} className="w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition">
+                <FcGoogle size={32} />
+              </div>
+              <div onClick={() => signIn('github', { callbackUrl: '/' })} className="w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition">
+                <FaGithub size={32} />
+              </div>
+            </div>
             <p className="text-neutral-500 mt-12">
               {variant === "login"
                 ? "First time using Netflix?"

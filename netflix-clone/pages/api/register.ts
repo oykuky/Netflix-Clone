@@ -3,10 +3,10 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import prismadb from '@/lib/prismadb';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse){
-    if (req.method !== 'POST') {   // Sadece POST isteklerine izin ver, aksi takdirde "Method Not Allowed" (405) hatası döndür
-        return res.status(405).end();
-    }
     try{
+        if (req.method !== 'POST') {   // Sadece POST isteklerine izin ver, aksi takdirde "Method Not Allowed" (405) hatası döndür
+            return res.status(405).end();
+        }
         // Gelen isteğin içinden email, name ve password parametrelerini çek
         const { email, name ,password} = req.body;
         // Veritabanında kullanıcının e-posta adresine sahip olup olmadığını kontrol et

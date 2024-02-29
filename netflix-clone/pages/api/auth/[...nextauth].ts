@@ -1,11 +1,23 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import prismadb from "@/lib/prismadb";
-import compare from 'bcrypt';
+import {compare} from 'bcrypt';
+import GithubProvider from "next-auth/providers/github";
+import GoogleProvider from "next-auth/providers/google";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
 
+//Credentials provider'ı, e-posta ve şifre tabanlı kimlik doğrulama sağlar.
 export default NextAuth ({
     providers: [
+        GithubProvider({
+          clientId: process.env.GITHUB_ID || '',
+          clientSecret: process.env.GITHUB_SECRET || '',
+        }),
+        GoogleProvider({
+          clientId: process.env.GOOGLE_CLIENT_ID || '',
+          clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
+        }),
         Credentials ({
             id : 'credentials',
             name : 'Credentials',
@@ -33,7 +45,7 @@ export default NextAuth ({
                 throw new Error("Email does not exist");
               }
 
-              const isCorrectPassword = await compare(
+              const isCorrectPassword = await compare( // Gelen şifreyi, veritabanındaki hashlenmiş şifre ile karşılaştır
                 credentials.password,
                 user.hashedPassword
               );
@@ -46,12 +58,15 @@ export default NextAuth ({
             }  
         })
     ],
+     // Giriş sayfasını belirt
     pages: {
       signIn: '/auth',
     },
+    // Debug modunu belirt (development ortamında aktif)
     debug: process.env.NODE_ENV === 'development',
+    adapter: PrismaAdapter(prismadb),
     session:{
-      strategy : 'jwt', 
+      strategy : 'jwt',  // JSON Web Token (JWT) kullanma stratejisi
     },
     jwt:{
       secret: process.env.NEXTAUTH_JWT_SECRET,
