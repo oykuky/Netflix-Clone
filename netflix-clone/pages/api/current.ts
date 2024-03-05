@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import serverAuth from "@/lib/serverAuth";
 
+//Next.js API rotasi
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     // Sadece GET isteklerini kabul et, diğer türdeki isteklere "Method Not Allowed" (405) hatası döndür.

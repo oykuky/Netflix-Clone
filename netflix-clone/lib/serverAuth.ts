@@ -5,13 +5,15 @@ import prismadb from '@/lib/prismadb';
 
 import { getSession } from "next-auth/react";
 
+//Next.js API tarafından çağrılacak ve kullanıcının oturumunu kontrol edecek
 const serverAuth = async (req:NextApiRequest) => {
+    // Oturumu al, eğer oturum yoksa veya kullanıcının e-posta bilgisi yoksa hata fırlat.
     const session = await getSession({req});
 
     if (!session?.user?.email) {
         throw new Error('Not signed in');
       }
-    
+    // Oturumu kullanarak veritabanından kullanıcıyı bul. Kullanıcı yoksa hata fırlat.
       const currentUser = await prismadb.user.findUnique({
         where: {
           email: session.user.email,
