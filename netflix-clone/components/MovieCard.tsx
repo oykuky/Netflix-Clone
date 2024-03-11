@@ -1,5 +1,6 @@
 import React from "react";
 import { BsFillPlayFill } from "react-icons/bs";
+import FavoriteButton from "./FavoriteButton";
 
 // data prop'u herhangi bir string key'e sahip obje (object) değerini alacak.
 interface MovieCardProps {
@@ -29,6 +30,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
             >
               <BsFillPlayFill size={30} />
             </div>
+            <FavoriteButton movieId = {data?.id}/>
           </div>
           <p className="text-green-400 font-semibold mt-4">
             New <span className="text-white">2023</span>
