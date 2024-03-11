@@ -10,4 +10,4 @@ const UseFavorites = () => {
     return {data,error,isLoading,mutate}
 }
 
-export default UseFavorites();
+export default UseFavorites;
