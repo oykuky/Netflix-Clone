@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 import {isEmpty} from 'lodash';
 import MovieCard from "./MovieCard";

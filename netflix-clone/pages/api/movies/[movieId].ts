@@ -8,7 +8,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(405).end();
     }
 
-    await serverAuth(req);
+    await serverAuth(req, res);
 
     const { movieId } = req.query;
 
@@ -20,18 +20,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       throw new Error('Missing Id');
     }
 
-    const movie = await prismadb.movie.findUnique({
+    const movies = await prismadb.movie.findUnique({
       where: {
         id: movieId
       }
     });
 
-    if(!movie){
-        throw new Error('Movie not found');
-    }
-    return res.status(200).json(movie);
+    return res.status(200).json(movies);
   } catch (error) {
     console.log(error);
-    return res.status(400).end();
+    return res.status(500).end();
   }
 }
