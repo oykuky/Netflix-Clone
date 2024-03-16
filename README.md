@@ -3,6 +3,8 @@
  
 <div align="center">
   <h1>NETFLIX with NEXT.JS!</h1>
+ 
+![netflix](https://github.com/oykuky/Netflix-Clone/assets/100612413/a1133f2a-b997-4e98-a6d2-b141c174cc8d)
 
 
   ### Features:
@@ -87,4 +89,6 @@ Add the `@tailwind` directives for each of Tailwind’s layers to your `./styles
 @tailwind components;
 @tailwind utilities;
 ```
+
+</div>
 
