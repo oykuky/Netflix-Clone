@@ -25,7 +25,7 @@ const NavbarItem: React.FC<NavbarItemProps> = ({ label }) => {
 
     return (
         <div
-            onClick={handleBrowse} // onClick olayı doğru şekilde kullanılmalı
+            onClick={handleBrowse} 
             className="text-white cursor-pointer hover:text-gray-300 transition">
             {label}
         </div>
