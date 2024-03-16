@@ -1,7 +1,9 @@
 # Netflix-Clone
+<div style="text-align: center;"> 
+ 
 ## :star: Building a Fullstack Netflix Clone with React, NextJS, TailwindCSS & Prisma
  
-<div align="center">
+
   <h1>NETFLIX with NEXT.JS!</h1>
  
 ![netflix](https://github.com/oykuky/Netflix-Clone/assets/100612413/a1133f2a-b997-4e98-a6d2-b141c174cc8d)
