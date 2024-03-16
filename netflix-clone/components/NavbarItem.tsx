@@ -1,14 +1,32 @@
 import React from 'react'
+import { useRouter } from "next/router";
 
-//Bileşenin Beklentilerini Belgelemek için props
+
 interface NavbarItemProps {
     label: string;
 }
 
-const NavbarItem:React.FC<NavbarItemProps> = ({label}) => {
+const NavbarItem: React.FC<NavbarItemProps> = ({ label }) => {
+    const router = useRouter();
 
-    return(
-        <div className="text-white cursor-pointer hover:text-gray-300 transition">
+    const handleBrowse = () => {
+        switch (label) {
+            case "Home":
+                router.push('/');
+                break;
+            case "Browse by languages":
+                router.push('https://www.languagereactor.com/m/nf_en_-');
+                break;
+            // Diğer durumlar için gerekli işlemleri ekleyebilirsiniz.
+            default:
+                break;
+        }
+    }
+
+    return (
+        <div
+            onClick={handleBrowse} // onClick olayı doğru şekilde kullanılmalı
+            className="text-white cursor-pointer hover:text-gray-300 transition">
             {label}
         </div>
     );

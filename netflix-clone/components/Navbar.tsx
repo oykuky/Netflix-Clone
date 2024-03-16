@@ -5,12 +5,14 @@ import { BiChevronDown } from "react-icons/bi";
 import { BsSearch, BsBell } from "react-icons/bs";
 import AccountMenu from "./AccountMenu";
 
+
 const TOP_OFFSET= 66;
 
 const Navbar = () => {
     const [showMobileMenu,setShowMobileMenu] = useState(false);
     const [showAccountMenu,setShowAccountMenu] = useState(false);
     const [showBackground,setShowBackground] = useState(false);
+    
 
     useEffect(() => {
         const handleScroll = () => {
